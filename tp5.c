@@ -11,7 +11,7 @@ typedef struct Tareas {
 
 typedef struct TNodo {
     Tarea actividades;
-    TNodo *siguiente;
+    Nodo *siguiente;
 }Nodo;
 
 void menu (Nodo * inicioPendientes, Nodo * inicioRealizadas, int id);
@@ -123,6 +123,8 @@ void borrar(Nodo ** inicioPendientes) {
         Aux = Aux->siguiente;
     }
     if(Aux){
+        AuxAnterior->siguiente = Aux->siguiente;
+        free(Aux);
         Aux = NULL;
     } 
 }
@@ -158,9 +160,13 @@ void modificar(Nodo ** inicioPendientes, Nodo ** inicioRealizadas) {
             strcpy(AuxRealizada->actividades.Descripcion, AuxPend->actividades.Descripcion);
             AuxRealizada->actividades.Duracion = AuxPend->actividades.Duracion;
 
+            
             AuxRealizada->siguiente = *inicioRealizadas;
             *inicioRealizadas = AuxRealizada;
 
+            AuxAnteriorPend->siguiente = AuxPend->siguiente;
+
+            free(AuxPend);
             AuxPend = NULL;
         }
         
