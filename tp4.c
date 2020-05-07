@@ -33,8 +33,8 @@ float costoProducto(Producto productos);
 void mostrar(Cliente ** clientela, int cantidadClientes);
 Producto cargarProducto ();
 void mostrarTareas(Tarea ** tRealizado, Tarea ** tPendiente, int contador, int totalTareas);
-Tarea BuscarPorId (Tarea ** busquedaPend, Tarea ** busquedaReal, int cantidadT, int cantidadR);
-Tarea BuscarPorPalabra(Tarea ** tareaRealiz, int contador);
+//Tarea BuscarPorId (Tarea ** busquedaPend, Tarea ** busquedaReal, int cantidadT, int cantidadR);
+Tarea BuscarTarea(Tarea ** tareaRealiz, int contador);
 
 int main () 
 {
@@ -186,24 +186,19 @@ void mostrarTareas(Tarea ** tRealizado, Tarea ** tPendiente, int contador, int t
     }
 }
 
-Tarea BuscarTarea (Tarea ** busquedaPend, Tarea ** busquedaReal, int cantidadT, int cantidadR) {
-    Tarea * encontradoP = (Tarea *)malloc(sizeof(Tarea));
-    Tarea * encontradoR = (Tarea *)malloc(sizeof(Tarea));
-    encontradoP = *busquedaPend;
-    encontradoR = *busquedaReal;
-    int busqda;
-    int i;
-    printf("Digite el ID de la tarea a buscar: ");
-    scanf("%d", &busqda);
+Tarea BuscarTarea(Tarea ** tareaRealiz, int contador) { //contador contiene la cantidad total de tareas
+    Tarea * tarReal = (Tarea *)malloc(sizeof(Tarea));
+    tarReal = *tareaRealiz;
+    char letra;
+    printf("Ingrese una letra: ");
+    scanf("%c", &letra);
     fflush(stdin);
-    for(i=0; i<cantidadT; i++) {
-        if(encontradoP[i].TareaID == NULL) {
-            for(i=0; i <cantidadR; i++) {
-                if(*(encontradoR[i]).TareaID == busqda) {
-                    return  encontradoR[i];
-                } 
-            } 
-        }  else if (*(encontradoP[i].TareaID) == busqda)
-                return  encontradoP[i];
+    for (int i = 0; i < contador; i++){
+        int cantLetras = strlen(tarReal[i].Descripcion);
+        for(int j=0;j<cantLetras; j++) {
+            if((tarReal[i].Descripcion)[j] == letra) {
+                return tarReal[i]; //TAREA REALIZADA [i]
+            }
+        }
     }
-}   
+}
