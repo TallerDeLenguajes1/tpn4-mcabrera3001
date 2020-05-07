@@ -185,3 +185,25 @@ void mostrarTareas(Tarea ** tRealizado, Tarea ** tPendiente, int contador, int t
         }
     }
 }
+
+Tarea BuscarTarea (Tarea ** busquedaPend, Tarea ** busquedaReal, int cantidadT, int cantidadR) {
+    Tarea * encontradoP = (Tarea *)malloc(sizeof(Tarea));
+    Tarea * encontradoR = (Tarea *)malloc(sizeof(Tarea));
+    encontradoP = *busquedaPend;
+    encontradoR = *busquedaReal;
+    int busqda;
+    int i;
+    printf("Digite el ID de la tarea a buscar: ");
+    scanf("%d", &busqda);
+    fflush(stdin);
+    for(i=0; i<cantidadT; i++) {
+        if(encontradoP[i].TareaID == NULL) {
+            for(i=0; i <cantidadR; i++) {
+                if(*(encontradoR[i]).TareaID == busqda) {
+                    return  encontradoR[i];
+                } 
+            } 
+        }  else if (*(encontradoP[i].TareaID) == busqda)
+                return  encontradoP[i];
+    }
+}   
